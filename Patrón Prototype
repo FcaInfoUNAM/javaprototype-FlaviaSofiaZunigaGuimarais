@@ -1,0 +1,79 @@
+// ===============================================
+// EJERCICIO 1: PATRÓN PROTOTYPE
+// ===============================================
+
+// --- CÓDIGO INICIAL (PROBLEMA) ---
+class GraphicElementProblema {
+    private String type;
+    private int x;
+    private int y;
+    private String style;
+    
+    public GraphicElementProblema(String type, int x, int y, String style) {
+        this.type = type;
+        this.x = x;
+        this.y = y;
+        this.style = style;
+        
+        // Simulación de operación costosa
+        System.out.println(" Creando elemento gráfico costoso...");
+        try {
+            Thread.sleep(2000); // Simula carga de recursos
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(" Elemento creado: " + type);
+    }
+    
+    public void setX(int x) { this.x = x; }
+    public void setY(int y) { this.y = y; }
+    
+    @Override
+    public String toString() {
+        return String.format("GraphicElement[type=%s, x=%d, y=%d, style=%s]", 
+                           type, x, y, style);
+    }
+}
+
+// --- SOLUCIÓN CON PATRÓN PROTOTYPE ---
+class GraphicElement implements Cloneable {
+    private String type;
+    private int x;
+    private int y;
+    private String style;
+    
+    public GraphicElement(String type, int x, int y, String style) {
+        this.type = type;
+        this.x = x;
+        this.y = y;
+        this.style = style;
+        
+        // Simulación de operación costosa
+        System.out.println(" Creando elemento gráfico costoso...");
+        try {
+            Thread.sleep(2000); // Simula carga de recursos
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(" Elemento creado: " + type);
+    }
+    
+    // Implementación del patrón Prototype según las instrucciones
+    @Override
+    public GraphicElement clone() {
+        try {
+            return (GraphicElement) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError(); // No puede ocurrir ya que implementamos Cloneable
+        }
+    }
+    
+    public void setX(int x) { this.x = x; }
+    public void setY(int y) { this.y = y; }
+    
+    @Override
+    public String toString() {
+        return String.format("GraphicElement[type=%s, x=%d, y=%d, style=%s]", 
+                           type, x, y, style);
+    }
+}
